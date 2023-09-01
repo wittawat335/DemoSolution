@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DemoWebApp.Web</title>
+    <link href="~/assets/css/main/app.css" rel="stylesheet" />
+    <link href="~/assets/css/main/app-dark.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <partial name="_Sidebar" />
+        <div id="main" class='layout-navbar'>
+            <partial name="_Header" />
+            <div id="main-content">
+                @RenderBody()
+                <partial name="_Modal" />
+                <footer>
+                    <div class="footer clearfix mb-0 text-muted">
+                        <div class="float-start">
+                            <p>2021 &copy; Mazer</p>
+                        </div>
+                        <div class="float-end">
+                            <p>
+                                Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="https://saugi.me">Saugi</a>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/assets/extensions/jquery/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.js"></script>
+    <script src="~/assets/js/app.js"></script>
+    <script src="~/js/scriptcustom.js"></script>
+    <script type="text/javascript">
+        var root = '@Url.Content("~")';
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
