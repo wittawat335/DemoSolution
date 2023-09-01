@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DemoWebApp.Core\DemoWebApp.Core.csproj" />
-    <ProjectReference Include="..\DemoWebApp.Infrastructure\DemoWebApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\DemoWebApp.Api\DemoWebApp.Api.csproj" />
   </ItemGroup>
 
 </Project>
