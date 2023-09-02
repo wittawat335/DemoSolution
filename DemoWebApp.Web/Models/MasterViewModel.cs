@@ -4,6 +4,15 @@ namespace DemoWebApp.Web.Models
 {
     public class MasterViewModel
     {
+        //public string masteR_CODE { get; set; } = null!;
+        //public string masteR_TYPE { get; set; } = null!;
+        //public string masteR_NAME_TH { get; set; }
+        //public string masteR_NAME_EN { get; set; }
+        //public string masteR_CREATE_BY { get; set; }
+        //public DateTime? masteR_CREATE_DATE { get; set; }
+        //public string masteR_UPDATE_BY { get; set; }
+        //public DateTime? masteR_UPDATE_DATE { get; set; }
+        //public string masteR_STATUS { get; set; }
         /// <summary>
         /// รหัส
         /// </summary>
@@ -49,7 +58,7 @@ namespace DemoWebApp.Web.Models
         /// วันที่แก้ไข
         /// </summary>
         //[Display(Name = "Name (Eng)")]
-        public DateTime MASTER_UPDATE_DATE { get; set; }
+        public DateTime? MASTER_UPDATE_DATE { get; set; }
 
         /// <summary>
         /// สถานะ

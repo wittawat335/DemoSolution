@@ -1,24 +1,8 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using DemoWebApp.Web.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
-{
-    option.LoginPath = "/Authentication/Login";
-    option.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-});
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.Name = "AspNetCore.Identity.Application";
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-    options.SlidingExpiration = true;
-}); // test
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //Session
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(option =>
-{
-    option.IdleTimeout = TimeSpan.FromMinutes(15);
-});
+builder.Services.SessionConfig();
+builder.Services.AddServices();
 
 builder.Services.AddControllersWithViews();
 

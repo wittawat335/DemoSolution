@@ -11,9 +11,8 @@ namespace DemoWebApp.Web.Services
         HttpClientHandler _httpClient = new HttpClientHandler();
         Common common = new Common();
 
-        public BaseApiService(HttpClientHandler httpClient)
+        public BaseApiService()
         {
-            _httpClient = httpClient;
             _httpClient.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }
 
@@ -30,7 +29,9 @@ namespace DemoWebApp.Web.Services
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
-                        response = JsonConvert.DeserializeObject<Response<List<T>>>(data);
+                        response.Value = JsonConvert.DeserializeObject<List<T>>(data);
+                        response.IsSuccess = Constants.StatusData.True;
+                        response.Message = Constants.StatusMessage.InsertSuccess;
                     }
                 }
             }

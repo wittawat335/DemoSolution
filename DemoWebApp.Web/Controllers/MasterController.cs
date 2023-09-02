@@ -1,5 +1,7 @@
-﻿using DemoWebApp.Web.Models;
+﻿using DemoWebApp.Domain.Entities;
+using DemoWebApp.Web.Models;
 using DemoWebApp.Web.Services.Contracts;
+using DemoWebApp.Web.Utilities;
 using DemoWebApp.Web.Utilities.AppSetting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +21,12 @@ namespace DemoWebApp.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetList()
+        {
+            return new JsonResult(await _baseApiService.GetListAsync(_appSetting.BaseUrlApi + "Master/GetAll"));
         }
     }
 }
