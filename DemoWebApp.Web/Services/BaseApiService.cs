@@ -29,9 +29,7 @@ namespace DemoWebApp.Web.Services
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
-                        response.Value = JsonConvert.DeserializeObject<List<T>>(data);
-                        response.IsSuccess = Constants.StatusData.True;
-                        response.Message = Constants.StatusMessage.InsertSuccess;
+                        response = JsonConvert.DeserializeObject<Response<List<T>>>(data);
                     }
                 }
             }

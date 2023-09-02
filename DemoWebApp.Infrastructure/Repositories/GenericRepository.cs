@@ -40,35 +40,45 @@ namespace DemoWebApp.Infrastructure.Repositories
         {
             return await _dbContext.Set<T>().FirstOrDefaultAsync(filter);
         }
+        public T Find(string code)
+        {
+            return _dbContext.Set<T>().Find(code);
+        }
 
-        public void Insert(T model)
+        public bool Insert(T model)
         {
             _dbContext.Set<T>().Add(model);
+            return true;
         }
 
-        public void InsertList(List<T> model)
+        public bool InsertList(List<T> model)
         {
             _dbContext.Set<T>().AddRange(model);
+            return true;
         }
 
-        public void Update(T model)
+        public bool Update(T model)
         {
             _dbContext.Set<T>().Update(model);
+            return true;
         }
 
-        public void UpdateList(List<T> model)
+        public bool UpdateList(List<T> model)
         {
             _dbContext.Set<T>().UpdateRange(model);
+            return true;
         }
 
-        public void Delete(T model)
+        public bool Delete(T model)
         {
             _dbContext.Set<T>().Remove(model);
+            return true;
         }
 
-        public void DeleteList(List<T> model)
+        public bool DeleteList(List<T> model)
         {
             _dbContext.Set<T>().RemoveRange(model);
+            return true;
         }
         public async Task SaveChangesAsync()
         {

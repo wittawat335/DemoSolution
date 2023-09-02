@@ -1,5 +1,5 @@
-﻿using DemoWebApp.Core.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using DemoWebApp.Core.DTOs;
+using DemoWebApp.Core.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoWebApp.Api.Controllers
@@ -17,7 +17,15 @@ namespace DemoWebApp.Api.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _service.GetAll());
+            var response = await _service.GetAll();
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public IActionResult Insert(MasterDTO model)
+        {
+            var response = _service.Insert(model);
+            return Ok(response);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using DemoWebApp.Core.DTOs;
-using DemoWebApp.Core.Interfaces;
+using DemoWebApp.Core.Models;
 using DemoWebApp.Core.Models.Master;
+using DemoWebApp.Core.Services.Contracts;
+using DemoWebApp.Core.Utilities;
 using DemoWebApp.Domain.Entities;
 using DemoWebApp.Domain.RepositoryContracts;
-using Microsoft.VisualBasic;
-using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace DemoWebApp.Core.Services
 {
@@ -20,46 +21,127 @@ namespace DemoWebApp.Core.Services
             _repository = repository;
             _mapper = mapper;
         }
-
-        public Task<List<MasterDTO>> Search(SearchModel model)
+        public async Task<ResponseApi<List<MasterDTO>>> GetAll(SearchModel model)
         {
-            throw new NotImplementedException();
-        }
-        public async Task<List<MasterDTO>> GetAll()
-        {
+            var response = new ResponseApi<List<MasterDTO>>();
             try
             {
                 var list = await _repository.AsQueryable();
-                return _mapper.Map<List<MasterDTO>>(list);
+                response.Value = _mapper.Map<List<MasterDTO>>(list);
+                response.IsSuccess = Constants.IsSuccess.True;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                response.Message = ex.Message;
             }
+            return response;
         }
-        public Task<MasterDTO> GetByCode(string code)
+        public async Task<ResponseApi<MasterDTO>> GetByCode(string code)
         {
-            throw new NotImplementedException();
+            var response = new ResponseApi<MasterDTO>();
+            try
+            {
+                var list = await _repository.Get(x => x.MASTER_CODE == code);
+                response.Value = _mapper.Map<MasterDTO>(list);
+                response.IsSuccess = Constants.IsSuccess.True;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
-        public Task<List<MasterDTO>> GetListByMasterType(string code)
+        public async Task<ResponseApi<List<MasterDTO>>> GetListByMasterType(string code)
         {
-            throw new NotImplementedException();
+            var response = new ResponseApi<List<MasterDTO>>();
+            try
+            {
+                var list = await _repository.AsQueryable(x => x.MASTER_TYPE == code);
+                response.Value = _mapper.Map<List<MasterDTO>>(list);
+                response.IsSuccess = Constants.IsSuccess.True;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
-        public Task<List<MasterDTO>> GetListMasterActiveOnly()
+        public async Task<ResponseApi<List<MasterDTO>>> GetListMasterActiveOnly()
         {
-            throw new NotImplementedException();
+            var response = new ResponseApi<List<MasterDTO>>();
+            try
+            {
+                var list = await _repository.AsQueryable(x => x.MASTER_STATUS == "A");
+                response.Value = _mapper.Map<List<MasterDTO>>(list);
+                response.IsSuccess = Constants.IsSuccess.True;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
-        public void Insert(MasterDTO model)
+        public async Task<ResponseApi<MasterDTO>> Insert(MasterDTO model)
         {
-            throw new NotImplementedException();
+            var response = new ResponseApi<MasterDTO>();
+            try
+            {
+                if (_repository.Insert(_mapper.Map<M_MASTER>(model)))
+                {
+                    await _repository.SaveChangesAsync();
+                    response.IsSuccess = Constants.IsSuccess.True;
+                    response.Message = Constants.StatusMessage.InsertSuccess;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
-        public void Update(MasterDTO model)
+        public async Task<ResponseApi<MasterDTO>> Update(MasterDTO model)
         {
-            throw new NotImplementedException();
+            var response = new ResponseApi<MasterDTO>();
+            try
+            {
+                var data = _repository.Find(model.MASTER_CODE);
+                if (data != null)
+                {
+                    if (_repository.Update(_mapper.Map(model, data)))
+                    {
+                        await _repository.SaveChangesAsync();
+                        response.IsSuccess = Constants.IsSuccess.True;
+                        response.Message = Constants.StatusMessage.UpdateSuccess;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
-        public void Delete(string code)
+        public async Task<ResponseApi<MasterDTO>> Delete(string code)
         {
-            throw new NotImplementedException();
+            var response = new ResponseApi<MasterDTO>();
+            try
+            {
+                var data = _repository.Find(code);
+                if (data != null)
+                {
+                    if (_repository.Delete(data))
+                    {
+                        await _repository.SaveChangesAsync();
+                        response.IsSuccess = Constants.IsSuccess.True;
+                        response.Message = Constants.StatusMessage.DeleteSuccess;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
     }
 }

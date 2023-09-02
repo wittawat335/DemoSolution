@@ -1,6 +1,6 @@
 ﻿using DemoWebApp.Core.AutoMapper;
-using DemoWebApp.Core.Interfaces;
 using DemoWebApp.Core.Services;
+using DemoWebApp.Core.Services.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DemoWebApp.Core

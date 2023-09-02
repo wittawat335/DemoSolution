@@ -1,7 +1,4 @@
-﻿using DemoWebApp.Core.AutoMapper;
-using DemoWebApp.Core.Interfaces;
-using DemoWebApp.Core.Services;
-using DemoWebApp.Web.Services.Contracts;
+﻿using DemoWebApp.Web.Services.Contracts;
 using DemoWebApp.Web.Services;
 using DemoWebApp.Web.Utilities.AppSetting;
 using Microsoft.AspNetCore.Authentication.Cookies;
