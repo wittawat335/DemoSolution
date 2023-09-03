@@ -9,15 +9,25 @@ namespace DemoWebApp.Domain.RepositoryContracts
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IQueryable<T>> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
-        Task<T> Get(Expression<Func<T, bool>> filter);
+        IQueryable<T> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
+        T Get(Expression<Func<T, bool>> filter);
         T Find(string code);
-        bool Insert(T model);
-        bool InsertList(List<T> model);
-        bool Update(T model);
-        bool UpdateList(List<T> model);
-        bool Delete(T model);
-        bool DeleteList(List<T> model);
+        void Insert(T model);
+        void InsertList(List<T> model);
+        void Update(T model);
+        void UpdateList(List<T> model);
+        void Delete(T model);
+        void DeleteList(List<T> model);
+        void SaveChanges();
+
+        #region Async
+        Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
+        Task<T> GetAsync(Expression<Func<T, bool>> filter);
+        Task<T> FindAsync(string code);
+        Task InsertAsync(T model);
+        Task InsertListAsync(List<T> model);
         Task SaveChangesAsync();
+
+        #endregion
     }
 }

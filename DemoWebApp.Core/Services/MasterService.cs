@@ -26,7 +26,7 @@ namespace DemoWebApp.Core.Services
             var response = new ResponseApi<List<MasterDTO>>();
             try
             {
-                var list = await _repository.AsQueryable();
+                var list = await _repository.GetListAsync();
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
                 response.IsSuccess = Constants.IsSuccess.True;
             }
@@ -41,7 +41,7 @@ namespace DemoWebApp.Core.Services
             var response = new ResponseApi<MasterDTO>();
             try
             {
-                var list = await _repository.Get(x => x.MASTER_CODE == code);
+                var list = await _repository.GetAsync(x => x.MASTER_CODE == code);
                 response.Value = _mapper.Map<MasterDTO>(list);
                 response.IsSuccess = Constants.IsSuccess.True;
             }
@@ -56,7 +56,7 @@ namespace DemoWebApp.Core.Services
             var response = new ResponseApi<List<MasterDTO>>();
             try
             {
-                var list = await _repository.AsQueryable(x => x.MASTER_TYPE == code);
+                var list = await _repository.GetListAsync(x => x.MASTER_TYPE == code);
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
                 response.IsSuccess = Constants.IsSuccess.True;
             }
@@ -71,7 +71,7 @@ namespace DemoWebApp.Core.Services
             var response = new ResponseApi<List<MasterDTO>>();
             try
             {
-                var list = await _repository.AsQueryable(x => x.MASTER_STATUS == "A");
+                var list = await _repository.GetListAsync(x => x.MASTER_STATUS == "A");
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
                 response.IsSuccess = Constants.IsSuccess.True;
             }
@@ -86,12 +86,10 @@ namespace DemoWebApp.Core.Services
             var response = new ResponseApi<MasterDTO>();
             try
             {
-                if (_repository.Insert(_mapper.Map<M_MASTER>(model)))
-                {
-                    await _repository.SaveChangesAsync();
-                    response.IsSuccess = Constants.IsSuccess.True;
-                    response.Message = Constants.StatusMessage.InsertSuccess;
-                }
+                _repository.Insert(_mapper.Map<M_MASTER>(model));
+                await _repository.SaveChangesAsync();
+                response.IsSuccess = Constants.IsSuccess.True;
+                response.Message = Constants.StatusMessage.InsertSuccess;
             }
             catch (Exception ex)
             {
@@ -107,12 +105,10 @@ namespace DemoWebApp.Core.Services
                 var data = _repository.Find(model.MASTER_CODE);
                 if (data != null)
                 {
-                    if (_repository.Update(_mapper.Map(model, data)))
-                    {
-                        await _repository.SaveChangesAsync();
-                        response.IsSuccess = Constants.IsSuccess.True;
-                        response.Message = Constants.StatusMessage.UpdateSuccess;
-                    }
+                    _repository.Update(_mapper.Map(model, data));
+                    await _repository.SaveChangesAsync();
+                    response.IsSuccess = Constants.IsSuccess.True;
+                    response.Message = Constants.StatusMessage.UpdateSuccess;
                 }
             }
             catch (Exception ex)
@@ -129,12 +125,10 @@ namespace DemoWebApp.Core.Services
                 var data = _repository.Find(code);
                 if (data != null)
                 {
-                    if (_repository.Delete(data))
-                    {
-                        await _repository.SaveChangesAsync();
-                        response.IsSuccess = Constants.IsSuccess.True;
-                        response.Message = Constants.StatusMessage.DeleteSuccess;
-                    }
+                    _repository.Delete(data);
+                    await _repository.SaveChangesAsync();
+                    response.IsSuccess = Constants.IsSuccess.True;
+                    response.Message = Constants.StatusMessage.DeleteSuccess;
                 }
             }
             catch (Exception ex)

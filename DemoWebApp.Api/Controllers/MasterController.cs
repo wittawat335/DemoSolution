@@ -9,23 +9,51 @@ namespace DemoWebApp.Api.Controllers
     public class MasterController : ControllerBase
     {
         private readonly IMasterService _service;
-
         public MasterController(IMasterService service)
         {
             _service = service;
         }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _service.GetAll();
-            return Ok(response);
+            return Ok(await _service.GetAll());
         }
 
-        [HttpPost]
-        public IActionResult Insert(MasterDTO model)
+        [HttpGet("GetListByMasterType/{code}")]
+        public async Task<IActionResult> GetListByMasterType(string code)
         {
-            var response = _service.Insert(model);
-            return Ok(response);
+            return Ok(await _service.GetListByMasterType(code));
+        }
+
+        [HttpGet("GetListMasterActiveOnly")]
+        public async Task<IActionResult> GetListMasterActiveOnly()
+        {
+            return Ok(await _service.GetListMasterActiveOnly());
+        }
+
+        [HttpGet("GetByCode/{code}")]
+        public async Task<IActionResult> GetByCode(string code)
+        {
+            return Ok(await _service.GetByCode(code));
+        }
+
+        [HttpPost("Insert")]
+        public async Task<IActionResult> Insert(MasterDTO model)
+        {
+            return Ok(await _service.Insert(model));
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(MasterDTO model)
+        {
+            return Ok(await _service.Update(model));
+        }
+
+        [HttpDelete("Delete/{code}")]
+        public async Task<IActionResult> Delete(string code)
+        {
+            return Ok(await _service.Delete(code));
         }
     }
 }
