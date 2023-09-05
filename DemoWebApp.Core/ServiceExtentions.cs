@@ -1,6 +1,8 @@
 ﻿using DemoWebApp.Core.AutoMapper;
+using DemoWebApp.Core.Helper;
 using DemoWebApp.Core.Services;
 using DemoWebApp.Core.Services.Contracts;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DemoWebApp.Core
@@ -13,6 +15,8 @@ namespace DemoWebApp.Core
 
             // RegisterService
             services.AddScoped<IMasterService, MasterService>();
+            services.AddTransient<IEmailService, EmailService>();
+
         }
     }
 }

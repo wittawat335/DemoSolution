@@ -1,8 +1,6 @@
-﻿using DemoWebApp.Domain.RepositoryContracts;
+﻿using DemoWebApp.Core.Domain.RepositoryContracts;
 using DemoWebApp.Infrastructure.DBContexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace DemoWebApp.Infrastructure.Repositories

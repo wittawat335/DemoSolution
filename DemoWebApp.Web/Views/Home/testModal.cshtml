@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "testModal";
+}
+<button type="button" onclick="PopupDetail()">test</button>
+@section Scripts{
+    <script>
+        function PopupDetail() {
+            var data = {};
+            modalPOST("Home", "Home", "_testModal", data, 50);
+        };
+    </script>
+}
+

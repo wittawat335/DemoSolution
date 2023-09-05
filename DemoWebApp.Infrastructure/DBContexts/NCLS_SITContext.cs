@@ -1,5 +1,5 @@
-﻿using DemoWebApp.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using DemoWebApp.Core.Domain.Entities;
 
 namespace DemoWebApp.Infrastructure.DBContexts;
 

@@ -39,6 +39,7 @@ function validateTextFromTo(idDateFrom, idDateTo) {
 
 function modalPOST(caption, controller, action, data, isFull, med) {
     var url = root + controller + '/' + action;
+    alert(url);
     $.post(url, data, function (result) {
         $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html(result);
         showModal(caption, isFull);
@@ -212,57 +213,8 @@ function alertMessageComfirm(message, mode, title) {
 }
 
 
-var jconfirm = function (message, callback, mode, title) {
-    if (mode == 'danger') {
-        i = '<i class="fa fa-times-circle-o fa-lg text-danger" style="padding-right: 6px;"></i>';
-    } else if (mode == 'warning') {
-        i = '<i class="fa fa-warning fa-lg text-warning" style="padding-right: 6px;"></i>';
-    } else if (mode == 'success') {
-        i = '<i class="fa fa-check-circle-o fa-lg text-success" style="padding-right: 6px;"></i>';
-    } else {
-        i = '<i class="fa fa-info-circle fa-lg text-info" style="padding-right: 6px;"></i>';
-    }
-    var t = (title == '' || title == undefined) ? 'แจ้งเตือนการทำรายการ' : title; //title
-    var options = {
-        title: i + t,
-        message: message
-    };
-    options.buttons = {
-        cancel: {
-            label: "ยกเลิก",
-            className: "btn-default",
-            callback: function (result) {
-                callback(false);
-            }
-        },
-        main: {
-            label: "ตกลง",
-            className: "btn-primary",
-            callback: function (result) {
-                callback(true);
-            }
-        }
-    };
-    bootbox.dialog(options);
-};
-var jconfirmCallback = function (message, fnCallback, mode, param1, param2, param3) {
-    jconfirm(message, function (r) {
-        if (!r) {
-            return;
-        } else {
 
-            if (param3 != '' && param3 != undefined && param3 != null) {
-                fnCallback(param1, param2, param3);
-            } else if (param2 != '' && param2 != undefined && param2 != null) {
-                fnCallback(param1, param2);
-            } else if (param1 != '' && param1 != undefined && param1 != null) {
-                fnCallback(param1);
-            } else {
-                fnCallback();
-            }
-        }
-    }, mode);
-}
+
 
 //$.extend($.validator.messages, {
 //    required: "กรุณากรอกข้อมูล",
@@ -346,22 +298,6 @@ function DataTableExport(tableName, divTarget, title) {
         table.buttons().container().appendTo(divTarget);
 }
 
-
-
-$(document).ajaxError(function (xhr, status, error, exception) {
-    if (status.status == '999') {
-        alert(exception);
-        window.location.href = status.getResponseHeader("url");
-        return;
-    }
-    jconfirm("Do you want to show \"Message error occurred\" on this page?", function (r) {
-        console.log(r);
-        if (r) {
-            window.location.href = rootWebPth;
-        }
-    }, 'danger', 'Error');
-
-});
 
 //BindControl
 function SetSelect2Value(id, text, val) {

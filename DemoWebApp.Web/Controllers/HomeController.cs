@@ -24,6 +24,11 @@ namespace DemoWebApp.Web.Controllers
             return View();
         }
 
+        public IActionResult testModal()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult _testModal()
         {

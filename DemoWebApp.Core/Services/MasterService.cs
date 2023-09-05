@@ -4,10 +4,8 @@ using DemoWebApp.Core.Models;
 using DemoWebApp.Core.Models.Master;
 using DemoWebApp.Core.Services.Contracts;
 using DemoWebApp.Core.Utilities;
-using DemoWebApp.Domain.Entities;
-using DemoWebApp.Domain.RepositoryContracts;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
+using DemoWebApp.Core.Domain.Entities;
+using DemoWebApp.Core.Domain.RepositoryContracts;
 
 namespace DemoWebApp.Core.Services
 {
@@ -27,6 +25,20 @@ namespace DemoWebApp.Core.Services
             try
             {
                 var list = await _repository.GetListAsync();
+                if (model != null)
+                {
+                    if (model.masterCode != null)
+                        list = list.Where(x => x.MASTER_CODE.Contains(model.masterCode)).ToList();
+                    if (model.masterType != null)
+                        list = list.Where(x => x.MASTER_TYPE.Contains(model.masterType)).ToList();
+                    if (model.MasterNameTH != null)
+                        list = list.Where(x => x.MASTER_NAME_TH.Contains(model.MasterNameTH)).ToList();
+                    if (model.MasterNameEN != null)
+                        list = list.Where(x => x.MASTER_NAME_EN.Contains(model.MasterNameEN)).ToList();
+                    if (model.masterStatus != null)
+                        list = list.Where(x => x.MASTER_STATUS.Contains(model.masterStatus)).ToList();
+                }
+
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
                 response.IsSuccess = Constants.IsSuccess.True;
             }
@@ -72,6 +84,7 @@ namespace DemoWebApp.Core.Services
             try
             {
                 var list = await _repository.GetListAsync(x => x.MASTER_STATUS == "A");
+                list = list.GroupBy(x => x.MASTER_TYPE).Select(x => x.FirstOrDefault()).ToList();
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
                 response.IsSuccess = Constants.IsSuccess.True;
             }

@@ -35,6 +35,12 @@
                 public const string Delete = "~/Product/Delete";
                 public const string select2Product = "~/Product/select2Product";
             }
+            public struct Master
+            {
+                public const string GetList = "~/Master/GetList";
+                public const string Save = "~/Master/Save";
+                public const string Delete = "~/Master/Delete";
+            }
             public struct Menu
             {
                 public const string GetList = "~/Menu/GetList";
@@ -55,6 +61,15 @@
         public struct MessageError
         {
             public const string CallAPI = "Error calling API";
+        }
+
+        public struct ddlValue
+        {
+            public struct MasterType
+            {
+                public const string Code = "MASTER_TYPE";
+                public const string Text = "MASTER_TYPE";
+            }
         }
 
         public struct CategoryDDL

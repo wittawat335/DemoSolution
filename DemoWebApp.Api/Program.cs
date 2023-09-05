@@ -1,14 +1,17 @@
 using DemoWebApp.Core;
+using DemoWebApp.Core.Helper;
 using DemoWebApp.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddCore();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddCore();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

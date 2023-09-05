@@ -1,4 +1,5 @@
-﻿using DemoWebApp.Domain.Entities;
+﻿using DemoWebApp.Core.DTOs;
+using DemoWebApp.Domain.Entities;
 using DemoWebApp.Web.Models;
 using DemoWebApp.Web.Services.Contracts;
 using DemoWebApp.Web.Utilities;
@@ -10,23 +11,39 @@ namespace DemoWebApp.Web.Controllers
     public class MasterController : Controller
     {
         private readonly IAppSeting _appSetting;
-        private readonly IBaseApiService<MasterViewModel> _baseApiService;
+        private readonly IBaseApiService<MasterDTO> _baseApiService;
 
-        public MasterController(IAppSeting appSetting, IBaseApiService<MasterViewModel> baseApiService)
+        public MasterController(IAppSeting appSetting, IBaseApiService<MasterDTO> baseApiService)
         {
             _appSetting = appSetting;
             _baseApiService = baseApiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new MasterViewModel();
+            try
+            {
+                var listMaster = await _baseApiService.GetListAsync(_appSetting.BaseUrlApi + "Master/GetListMasterActiveOnly");
+                model.listMaster = listMaster.Value;
+            }
+            catch
+            {
+                throw;
+            }
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> GetList()
         {
             return new JsonResult(await _baseApiService.GetListAsync(_appSetting.BaseUrlApi + "Master/GetAll"));
+        }
+
+        [HttpPost]
+        public IActionResult _Detail(string code, string action)
+        {
+            return PartialView();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DemoWebApp.Domain.RepositoryContracts;
+﻿using DemoWebApp.Core.Domain.RepositoryContracts;
 using DemoWebApp.Infrastructure.DBContexts;
 using DemoWebApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
