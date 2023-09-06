@@ -40,6 +40,21 @@ namespace DemoWebApp.Core.Services
             email.To.Add(MailboxAddress.Parse(request.ToEmail));
             email.Subject = request.Subject;
             var builder = new BodyBuilder();
+
+            byte[] fileBytes;
+            string fileTarget = @"E:\Project 2023\.Net Core\MVC\DemoSolution\DemoWebApp.Core\Attachment\dummy.pdf";
+            if (File.Exists(fileTarget))
+            {
+                FileStream file = new FileStream(fileTarget, FileMode.Open, FileAccess.Read);
+                using (var ms = new MemoryStream())
+                {
+                    file.CopyTo(ms);
+                    fileBytes = ms.ToArray();
+                }
+                builder.Attachments.Add("attachment.pdf", fileBytes, ContentType.Parse("application/octet-stream"));
+                builder.Attachments.Add("attachment2.pdf", fileBytes, ContentType.Parse("application/octet-stream"));
+            }
+
             builder.HtmlBody = request.Body;
             email.Body = builder.ToMessageBody();
 
