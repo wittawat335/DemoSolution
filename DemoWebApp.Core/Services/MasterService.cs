@@ -40,7 +40,7 @@ namespace DemoWebApp.Core.Services
                 }
 
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
-                response.IsSuccess = Constants.IsSuccess.True;
+                response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace DemoWebApp.Core.Services
             {
                 var list = await _repository.GetAsync(x => x.MASTER_CODE == code);
                 response.Value = _mapper.Map<MasterDTO>(list);
-                response.IsSuccess = Constants.IsSuccess.True;
+                response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace DemoWebApp.Core.Services
             {
                 var list = await _repository.GetListAsync(x => x.MASTER_TYPE == code);
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
-                response.IsSuccess = Constants.IsSuccess.True;
+                response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace DemoWebApp.Core.Services
                 var list = await _repository.GetListAsync(x => x.MASTER_STATUS == "A");
                 list = list.GroupBy(x => x.MASTER_TYPE).Select(x => x.FirstOrDefault()).ToList();
                 response.Value = _mapper.Map<List<MasterDTO>>(list);
-                response.IsSuccess = Constants.IsSuccess.True;
+                response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -101,8 +101,8 @@ namespace DemoWebApp.Core.Services
             {
                 _repository.Insert(_mapper.Map<M_MASTER>(model));
                 await _repository.SaveChangesAsync();
-                response.IsSuccess = Constants.IsSuccess.True;
-                response.Message = Constants.StatusMessage.InsertSuccess;
+                response.IsSuccess = true;
+                response.Message = "";
             }
             catch (Exception ex)
             {
@@ -120,8 +120,8 @@ namespace DemoWebApp.Core.Services
                 {
                     _repository.Update(_mapper.Map(model, data));
                     await _repository.SaveChangesAsync();
-                    response.IsSuccess = Constants.IsSuccess.True;
-                    response.Message = Constants.StatusMessage.UpdateSuccess;
+                    response.IsSuccess = true;
+                    response.Message = "";
                 }
             }
             catch (Exception ex)
@@ -140,8 +140,8 @@ namespace DemoWebApp.Core.Services
                 {
                     _repository.Delete(data);
                     await _repository.SaveChangesAsync();
-                    response.IsSuccess = Constants.IsSuccess.True;
-                    response.Message = Constants.StatusMessage.DeleteSuccess;
+                    response.IsSuccess = true;
+                    response.Message = "";
                 }
             }
             catch (Exception ex)

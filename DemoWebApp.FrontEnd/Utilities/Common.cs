@@ -6,16 +6,16 @@ namespace DemoWebApp.FrontEnd.Utilities
     public class Common
     {
         IHttpContextAccessor _contextAccessor = new HttpContextAccessor();
-        public LoginInfo GetValueBySession()
-        {
-            var session = new LoginInfo();
-            string sessionString = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+        //public LoginInfo GetValueBySession()
+        //{
+        //    var session = new LoginInfo();
+        //    string sessionString = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
 
-            if (sessionString != null)
-                session = JsonConvert.DeserializeObject<LoginInfo>(sessionString);
+        //    if (sessionString != null)
+        //        session = JsonConvert.DeserializeObject<LoginInfo>(sessionString);
 
-            return session;
-        }
+        //    return session;
+        //}
 
         public class ddlValue
         {

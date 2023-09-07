@@ -11,7 +11,7 @@ namespace DemoWebApp.FrontEnd.Extentions
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
             {
-                option.LoginPath = "/Authentication/Login";
+                option.LoginPath = "/Home/Login";
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(15);
             });
 
@@ -33,6 +33,8 @@ namespace DemoWebApp.FrontEnd.Extentions
         {
             services.AddSingleton<IAppSeting, AppSetting>();
             services.AddTransient(typeof(IBaseApiService<>), typeof(BaseApiService<>));
+            services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@using DemoWebApp.FrontEnd.Utilities;
+<script src="~/assets/extensions/jquery/jquery.js"></script>
+<script src="~/assets/js/bootstrap.js"></script>
+<script>
+    function Login() {
+        var url = '@Url.Content(Constants.UrlAction.Home.Login)';
+        var data = {
+            "UserName": $('#userLogin').val(),
+            "Password": $('#password').val()
+        };
+        $.post(url, data, function (response) {
+            if (response.isSuccess) {
+                swalMessage('success', response.message);
+                window.location.href = response.url;
+            }
+            else {
+                Swal.fire(response.message);
+            }
+        });
+    }
+</script>

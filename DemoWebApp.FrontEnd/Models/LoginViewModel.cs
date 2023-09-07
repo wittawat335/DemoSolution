@@ -2,10 +2,10 @@
 {
     public class LoginViewModel
     {
-        public string UserLogin { get; set; }
-        public string Password { get; set; }
+        public string userLogin { get; set; }
+        public string password { get; set; }
 
-        public class LoginInfo
+        public class SessionInfo
         {
             public string AccessToken { get; set; } = string.Empty;
             public string Email { get; set; } = string.Empty;
